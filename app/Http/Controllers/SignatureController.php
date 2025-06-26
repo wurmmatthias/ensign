@@ -76,7 +76,10 @@ public function store(Request $request, Document $document)
     $pdf->Output($signedPdfFullPath, 'F');
 
     // 5. Optional: neuen Pfad in DB speichern oder Nutzer weiterleiten
-    return redirect()->route('documents.index')->with('success', 'Dokument unterschrieben! 📄');
+    return redirect()
+    ->route('documents.signed-preview', ['path' => basename($signedPdfPath)])
+    ->with('signed_success', true);
+
 
     // Optional: signiertes Dokument in DB verknüpfen:
     // $document->update(['signed_path' => $signedPdfPath]);

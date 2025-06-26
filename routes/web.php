@@ -30,5 +30,9 @@ Route::middleware(['auth'])->group(function () {
 
 Route::post('/documents/{document}/signature', [SignatureController::class, 'store'])->name('signature.store');
 
+Route::get('/signed-preview/{path}', function ($path) {
+    return view('documents.signed-preview', ['signedPath' => $path]);
+})->name('documents.signed-preview');
+
 
 require __DIR__.'/auth.php';
