@@ -5,6 +5,9 @@ use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+use App\Models\SharedLink;
 
 
 class DocumentController extends Controller
@@ -46,5 +49,18 @@ public function show(Document $document)
     $this->authorize('view', $document);
 
     return view('documents.show', compact('document'));
+}
+
+public function share(Document $document)
+{
+    $sharedLink = SharedLink::create([
+        'token' => Str::uuid(),
+        'document_id' => $document->id,
+        'expires_at' => now()->addHours(48),
+    ]);
+
+    $link = route('shared.sign', $sharedLink->token);
+
+    return back()->with('share_link', $link);
 }
 }

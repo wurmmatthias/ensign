@@ -23,10 +23,26 @@
                                 <p class="text-sm text-gray-600">Hochgeladen am<br><span class="font-medium text-gray-800">{{ $document->created_at->format('d.m.Y H:i') }}</span></p>
                             </div>
                             <div class="text-sm text-lime-700 font-medium group-hover:underline">➔ ansehen & unterschreiben</div>
+                            <form method="POST" action="{{ route('documents.share', $document) }}">
+                                @csrf
+                                <button class="text-sm text-emerald-600 hover:underline">
+                                    🔗 Teilen
+                                </button>
+                            </form>
+
                         </div>
                     </a>
                 @endforeach
             </div>
         @endif
     </div>
+            @if(session('share_link'))
+            <div class="mt-4 p-4 bg-emerald-50 border border-emerald-200 rounded-md">
+                📎 Öffentlicher Link:
+                <a href="{{ session('share_link') }}" target="_blank" class="text-emerald-700 underline">
+                    {{ session('share_link') }}
+                </a>
+                <span class="text-xs text-gray-500">(gültig für 48 Stunden)</span>
+            </div>
+        @endif
 </x-app-layout>
