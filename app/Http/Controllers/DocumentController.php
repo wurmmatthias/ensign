@@ -60,6 +60,8 @@ public function share(Document $document)
     ]);
 
     $link = route('shared.sign', $sharedLink->token);
+    session()->flash('share_link', route('shared.sign', $sharedLink->token));
+    session()->flash('share_expires_at', $sharedLink->expires_at);
 
     return back()->with('share_link', $link);
 }
