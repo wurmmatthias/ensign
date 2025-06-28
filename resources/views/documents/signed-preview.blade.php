@@ -9,23 +9,25 @@
             </div>
 
             <div class="rounded-2xl overflow-hidden border border-emerald-200 bg-white shadow-xl">
-                <iframe 
-                    src="{{ asset('storage/signed/' . $signedPath) }}" 
+                <iframe
+                    src="{{ asset('storage/signed/' . $signedPath) }}"
                     class="w-full h-[750px] rounded-b-2xl"
                 ></iframe>
             </div>
 
             <div class="mt-6 flex flex-col sm:flex-row sm:justify-between items-center gap-4">
-                <a href="{{ asset('storage/signed/' . $signedPath) }}" 
-                   download 
+                <a href="{{ asset('storage/signed/' . $signedPath) }}"
+                   download
                    class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition shadow-md">
                     ⬇️ PDF herunterladen
                 </a>
 
-                <a href="{{ route('documents.index') }}" 
+                @auth
+                <a href="{{ route('documents.index') }}"
                    class="text-emerald-700 hover:underline text-sm">
                     🔙 Zurück zur Dokumentenübersicht
                 </a>
+                @endauth
             </div>
         </div>
     </div>
